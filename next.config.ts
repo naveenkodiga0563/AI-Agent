@@ -1,7 +1,11 @@
 import type { NextConfig } from "next";
 
+const isDev = process.env.NODE_ENV !== "production";
+
 const nextConfig: NextConfig = {
-  /* config options here */
+  ...(isDev && {
+    devIndicators: false,
+  }),
 };
 
 export default nextConfig;
