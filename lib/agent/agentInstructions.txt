@@ -1,0 +1,20 @@
+AGENT TOOLS AND OPERATIONS:
+
+1. jiraCloudData tool - use with "operation" parameter:
+   - searchIssues: operation="searchIssues", jql="your JQL query"
+   - getIssue: operation="getIssue", issueKey="KEY-123"
+   - createIssue: operation="createIssue", summary="title", description="text", issueType="Story"
+   - updateIssue: operation="updateIssue", issueKey="KEY-123", summary="new title"
+   - deleteIssue: operation="deleteIssue", issueKey="KEY-123"
+
+2. confluenceKnowledge tool - use with "operation" parameter:
+   - searchPages: operation="searchPages", cql="your search query"
+   - getPage: operation="getPage", pageId="12345"
+
+3. githubRepoInsights tool - use with "operation" parameter:
+   - getRepo: operation="getRepo"
+   - listPullRequests: operation="listPullRequests"
+
+IMPORTANT: Always use the TOOL NAME (jiraCloudData, confluenceKnowledge, githubRepoInsights) with operation parameter.
+Never call searchPages, getPage directly - use confluenceKnowledge tool with operation parameter.
+Always provide required parameters for each operation.

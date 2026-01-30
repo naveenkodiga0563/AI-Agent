@@ -1,6 +1,7 @@
 import { Gemini, LlmAgent } from "@google/adk";
 import { jiraDataTool } from "../tools/jira";
 import { githubDataTool } from "../tools/github";
+import { confluenceSearchTool, confluenceGetPageTool, confluenceListPagesTool } from "../tools/confluence";
 
 const GOOGLE_API_KEY = process.env.GOOGLE_API_KEY;
 
@@ -38,10 +39,16 @@ export const directvAgent = new LlmAgent({
     Available tools and how to use them:
     - jiraCloudData.searchIssues: Provide a JQL string. Use the default query "${DEFAULT_JIRA_EXAMPLE_JQL}" when the user wants a general ticket list.
     - jiraCloudData.getIssue: Provide the exact Jira key (for example SCRUM-1) to inspect a single ticket.
+    - jiraCloudData.createIssue: Create a new issue. Provide summary (required), description (optional), issueType (defaults to Story), and assignee (optional).
+    - jiraCloudData.updateIssue: Update an existing issue. Provide issueKey (required) and any of: summary, description, status, or assignee.
+    - jiraCloudData.addComment: Add a comment to an existing issue. Provide issueKey (required) and comment (required).
+    - jiraCloudData.deleteIssue: Delete an issue. Provide issueKey (required).
+    - confluenceSearch: Search Confluence pages by keywords (e.g., "deployment", "sitemap"). WHEN YOU FIND PAGES, use confluenceGetPage to fetch full content.
+    - confluenceGetPage: Provide the numeric Confluence page ID to fetch page content. Use this after confluenceSearch to get full explanations.
     - githubRepoInsights.getRepo: Assume ${DEFAULT_GITHUB_REPO_REFERENCE} (treat “stockprediction ai” as the same repo) unless the user overrides it. Only ask for owner/repo if the defaults are missing.
     - githubRepoInsights.listPullRequests: Assume ${DEFAULT_GITHUB_REPO_REFERENCE} with state "all" when unspecified (treat “stockprediction ai” as the same repo) and always report how many PRs match the chosen filter.
 
-    After every tool response you MUST send a final textual summary that lists the key tickets or pull requests, highlights owners/status/dates, and calls out risks or blockers.
+    After every tool response you MUST send a final textual summary that lists the key tickets, Confluence findings, or pull requests, highlights owners/status/dates, and calls out risks or blockers.
   `,
-  tools: [jiraDataTool, githubDataTool],
+  tools: [jiraDataTool, githubDataTool, confluenceSearchTool, confluenceGetPageTool, confluenceListPagesTool],
 });
