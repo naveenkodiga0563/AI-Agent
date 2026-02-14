@@ -1,0 +1,25 @@
+@import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    @apply box-border;
+  }
+
+  html,
+  body {
+    @apply min-h-screen bg-slate-950 text-slate-100 antialiased;
+  }
+
+  body {
+    @apply font-sans;
+    background-image: radial-gradient(circle at top, rgba(148, 163, 184, 0.1), transparent 65%);
+  }
+
+  ::selection {
+    @apply bg-emerald-400/80 text-slate-950;
+  }
+}
